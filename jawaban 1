@@ -1,0 +1,32 @@
+1. Membuat database "sekolahku":
+sql
+CREATE DATABASE sekolahku;
+
+
+2. Menggunakan database "sekolahku":
+sql
+USE sekolahku;
+
+
+3. Membuat tabel "users" dengan struktur/model
+sql
+CREATE TABLE users (
+  id INT PRIMARY KEY(11),
+  username VARCHAR(50),
+  email VARCHAR(50),
+  password VARCHAR(50),
+  create_at TIME_STAMP,
+  updated_at TIME_STAMP,
+);
+
+
+4. Memasukkan beberapa data ke dalam tabel "users":
+sql
+INSERT INTO users (id, uesrname, email, password, create_at, updated_at)
+VALUES
+(1, 'Andi', 'andi@andi.com', '12345', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),
+(2, 'Budi', 'budi@budi.com', '67890', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),
+(3, 'Caca', 'caca@caca.com', 'abcde', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),
+(4, 'Deni', 'deni@deni.com', 'fghij', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),
+(5, 'Euis', 'euis@euis.com', 'klmno', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),
+(6, 'Fafa', 'fafa@fafa.com', 'pqrst', '2019-01-28 05:15:29', '2019-01-28 05:15:29'),;
