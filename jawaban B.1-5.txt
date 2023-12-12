@@ -1,0 +1,171 @@
+soal B - Live Coding :
+
+Soal 1 dan 2 : 
+ 1. Tabel "users":
+    - Kolom: user_id (Primary Key), username, password, role (admin/user), other_columns 
+	(kolom tambahan sesuai kebutuhan)
+
+ 2. Tabel "courses":
+    - Kolom: course_id (Primary Key), course_name, other_columns 
+	(kolom tambahan sesuai kebutuhan)
+
+ 3. Tabel "userCourse":
+    - Kolom: userCourse_id (Primary Key), user_id (Foreign Key ke tabel "users"), 
+	course_id (Foreign Key ke tabel "courses"), other_columns 
+	(kolom tambahan sesuai kebutuhan)
+
+ 4. Fitur CRUD:
+    a. Create:
+    - Admin: Memiliki akses untuk membuat data baru pada tabel "users", "courses", dan "userCourse".
+    - User: Tidak memiliki akses untuk membuat data baru.
+
+    b. Read:
+    - Admin: Memiliki akses untuk melihat data keseluruhan pada tabel "users", "courses", dan "userCourse".
+    - User: Hanya dapat melihat data yang terkait dengan user yang melakukan login.
+
+    c. Update:
+    - Admin: Memiliki akses untuk mengubah data pada tabel "users", "courses", dan "userCourse".
+    - User: Hanya dapat mengubah data yang terkait dengan user yang melakukan login.
+
+    d. Delete:
+    - Admin: Memiliki akses untuk menghapus data pada tabel "users", "courses", dan "userCourse".
+    - User: Hanya dapat menghapus data yang terkait dengan user yang melakukan login.
+
+    5. Akses Login:
+    - Administrator: Memiliki akses penuh untuk melakukan CRUD pada semua tabel.
+    - User Biasa: Hanya memiliki akses untuk melihat, mengubah, dan menghapus data yang 
+	terkait dengan user yang melakukan login.
+	
+Soal 3 :
+ 1. Jumlah peserta didik untuk setiap mata kuliah:
+	SELECT courses.course_name, COUNT(userCourse.user_id) AS jumlah_peserta
+	FROM courses
+	JOIN userCourse ON courses.course_id = userCourse.course_id
+	GROUP BY courses.course_id;
+
+ 2. Jumlah peserta didik beserta total fee untuk setiap mentor:
+	SELECT users.user_name, COUNT(userCourse.user_id) AS jumlah_peserta, COUNT(userCourse.user_id) * 2000000 AS total_fee
+	FROM users
+	JOIN userCourse ON users.user_id = userCourse.user_id
+	JOIN courses ON userCourse.course_id = courses.course_id
+	GROUP BY users.user_id;
+
+Soal 4 :
+python
+from flask import Flask, jsonify
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/peserta_didik/sarjana', methods=['GET'])
+def get_peserta_didik_sarjana():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = '''
+    SELECT users.user_name, courses.course_name
+    FROM users
+    JOIN userCourse ON users.user_id = userCourse.user_id
+    JOIN courses ON userCourse.course_id = courses.course_id
+    WHERE users.degree = 'sarjana'
+    '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    response = {'data': result}
+    return jsonify(response)
+
+@app.route('/peserta_didik/non_sarjana', methods=['GET'])
+def get_peserta_didik_non_sarjana():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = '''
+    SELECT users.user_name, courses.course_name
+    FROM users
+    JOIN userCourse ON users.user_id = userCourse.user_id
+    JOIN courses ON userCourse.course_id = courses.course_id
+    WHERE users.degree != 'sarjana'
+    '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    response = {'data': result}
+    return jsonify(response)
+
+@app.route('/jumlah_peserta_didik', methods=['GET'])
+def get_jumlah_peserta_didik():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = '''
+    SELECT courses.course_name, COUNT(userCourse.user_id) AS jumlah_peserta
+    FROM courses
+    JOIN userCourse ON courses.course_id = userCourse.course_id
+    GROUP BY courses.course_id
+    '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    response = {'data': result}
+    return jsonify(response)
+
+@app.route('/jumlah_peserta_didik_fee', methods=['GET'])
+def get_jumlah_peserta_didik_fee():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    query = '''
+    SELECT users.user_name, COUNT(userCourse.user_id) AS jumlah_peserta, COUNT(userCourse.user_id) * 2000000 AS total_fee
+    FROM users
+    JOIN userCourse ON users.user_id = userCourse.user_id
+    JOIN courses ON userCourse.course_id = courses.course_id
+    GROUP BY users.user_id
+    '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    response = {'data': result}
+    return jsonify(response)
+
+if __name__ == '__main__':
+    app.run()
+
+Soal 5 :
+python
+import unittest
+
+class TestAccountValidation(unittest.TestCase):
+    def test_login_validation(self):
+        # Simulasi pengujian validasi akun yang melakukan login
+        # Dapat menambahkan kode pengujian sesuai dengan kebutuhan
+        self.assertTrue(login_validation("username", "password"))  # Contoh pengujian berhasil
+        self.assertFalse(login_validation("username", "wrong_password"))  # Contoh pengujian gagal
+
+class TestInputValidation(unittest.TestCase):
+    def test_user_input_validation(self):
+        # Simulasi pengujian validasi input data user
+        # Dapat menambahkan kode pengujian sesuai dengan kebutuhan
+        self.assertTrue(user_input_validation("John Doe", "john@example.com"))  # Contoh pengujian berhasil
+        self.assertFalse(user_input_validation("", "john@example.com"))  # Contoh pengujian gagal
+
+# Fungsi validasi akun yang melakukan login
+def login_validation(username, password):
+    # Implementasikan logika validasi akun di sini
+    # Mengembalikan True jika akun valid, False jika tidak valid
+    pass
+
+# Fungsi validasi input data user
+def user_input_validation(name, email):
+    # Implementasikan logika validasi input data user di sini
+    # Mengembalikan True jika input valid, False jika tidak valid
+    pass
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+Terdapat dua kelas pengujian (UnitTest) yang masing-masing menguji validasi 
+akun yang melakukan login dan validasi input data user. Dapat menambahkan kode pengujian tambahan 
+sesuai dengan kebutuhan di dalam masing-masing metode pengujian.
+
+Mengimplementasikan logika validasi yang sesuai di dalam fungsi `login_validation` 
+dan `user_input_validation`. Fungsi-fungsi ini harus mengembalikan `True` jika validasi berhasil 
+dan `False` jika validasi gagal.
+

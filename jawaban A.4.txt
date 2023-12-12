@@ -1,0 +1,14 @@
+1. tampilan semua daftar peserta didik beserta mata kuliah yang diikutinya, lengkap dengan nama &
+gelar mentornya :
+
+sql
+SELECT u.name AS student_name, c.course_name, m.name AS mentor_name, m.title
+FROM users u
+JOIN userCourse uc ON u.id = uc.user_id
+JOIN courses c ON uc.course_id = c.id
+JOIN users m ON c.mentor_id = m.id;
+
+//query ini mengasumsikan bahwa tabel "users" memiliki kolom primary key bernama "id", 
+tabel "courses" memiliki kolom primary key bernama "id", dan 
+"course_id" yang masing-masing merujuk ke kolom "id" di tabel "users" dan "courses"//
+

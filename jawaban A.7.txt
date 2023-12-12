@@ -1,0 +1,13 @@
+7. Tampilan jumlah peserta didik untuk setiap mata kuliah.
+
+	sql
+    SELECT courses.course_name, COUNT(userCourse.user_id) AS jumlah_peserta
+    FROM courses
+    JOIN userCourse ON courses.course_id = userCourse.course_id
+    GROUP BY courses.course_name;
+
+//Query ini akan menggabungkan tabel "courses" dan "userCourse" 
+	berdasarkan kolom "course_id" dan menghitung jumlah peserta didik 
+	dengan menghitung jumlah baris yang memiliki nilai tidak null pada 
+	kolom "user_id" dalam tabel "userCourse". Hasilnya akan ditampilkan 
+	dalam kolom "course_name" dari tabel "courses" dan kolom "jumlah_peserta".//

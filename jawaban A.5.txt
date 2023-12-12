@@ -1,0 +1,15 @@
+5. Menampilkan daftar peserta didik beserta mata kuliah yang diikutinya, 
+yang mentornya bergelar sarjana
+
+sql
+SELECT u.name AS student_name, c.course_name, m.name AS mentor_name, m.title
+FROM users u
+JOIN userCourse uc ON u.id = uc.user_id
+JOIN courses c ON uc.course_id = c.id
+JOIN users mentor ON c.mentor_id = mentor.id
+WHERE mentor.degree = 'Bachelor'
+
+
+//query ini mengasumsikan bahwa tabel "users" memiliki kolom bernama "degree" 
+untuk menyimpan informasi degree mentor. Sesuaikan nama kolom dan 
+hubungan tabel sesuai dengan skema database sebenarnya//

@@ -1,0 +1,15 @@
+6. Tampilan daftar peserta didik beserta mata kuliah yang diikutinya, yang mentornya bergelar selain
+sarjana
+
+sql
+SELECT u.name AS student_name, c.course_name
+FROM users u
+JOIN userCourse uc ON u.id = uc.user_id
+JOIN courses c ON uc.course_id = c.id
+JOIN users mentor ON mentor.id = c.mentor_id
+WHERE mentor.title <> 'Bachelor';
+
+//Query ini berdasarkan perintah dibawah ini:
+1. "users" table with columns: id, name, and title.
+2. "courses" table with columns: id, course_name, and mentor_id.
+3. "userCourse" table with columns: user_id and course_id.//

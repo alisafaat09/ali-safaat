@@ -1,0 +1,43 @@
+1. tabel "courses" :
+
+	sql
+    CREATE TABLE courses (
+      id INT PRIMARY KEY(11),
+      course VARCHAR(50),
+      mentor VARCHAR(50),
+      title VARCHAR(500),
+    );
+
+
+2. data entries "courses" table:
+
+    sql
+    INSERT INTO courses (id, course, mentor, title)
+    VALUES (1, 'C++', 'Ari', 'Dr.');
+
+    INSERT INTO courses (id, course, mentor, title)
+    VALUES (2, 'C#', 'Ari', 'Dr.');
+
+    INSERT INTO courses (id, course, mentor, title)
+    VALUES (3, 'C#', 'Ari', 'Dr.');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (4, 'CSS', 'Cania', 'S.Kom');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (5, 'HTML', 'Cania', 'S.Kom');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (6, 'Javascript', 'Cania', 'S.Kom');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (7, 'Python', 'Barry', 'S.T');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (8, 'Micropython', 'Barry', 'S.T');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (9, 'Java', 'Darren', 'M.T');
+	
+	INSERT INTO courses (id, course, mentor, title)
+    VALUES (10, 'Ruby', 'Darren', 'M.T');

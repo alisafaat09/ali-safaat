@@ -1,0 +1,17 @@
+8. Tampilan jumlah peserta didik beserta total fee untuk setiap mentor. Total fee dihitung dengan besaran Rp
+2.000.000,- per peserta didik
+
+	sql
+    SELECT users.mentor_name, COUNT(userCourse.user_id) AS jumlah_peserta, COUNT(userCourse.user_id) * 2000000 AS total_fee
+    FROM users
+    JOIN userCourse ON users.user_id = userCourse.user_id
+    JOIN courses ON userCourse.course_id = courses.course_id
+    GROUP BY users.mentor_name;
+
+//Query ini akan menggabungkan tabel "users", "userCourse", dan "courses" 
+	berdasarkan kolom "user_id" dan "course_id". Kemudian, akan dihitung jumlah 
+	peserta didik dengan menghitung jumlah baris yang memiliki nilai tidak null 
+	pada kolom "user_id" dalam tabel "userCourse". Total fee dihitung dengan 
+	mengalikan jumlah peserta didik dengan besaran Rp 2.000.000,- per peserta 
+	didik. Hasilnya akan ditampilkan dalam kolom "mentor_name" dari tabel "users", 
+	kolom "jumlah_peserta", dan kolom "total_fee".//
